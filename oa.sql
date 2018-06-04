@@ -25,7 +25,7 @@ CREATE TABLE user(
    PRIMARY KEY(id)
 )engine=InnoDB DEFAULT charset=utf8;
 
-/*部门信息*/
+/*部门信息公告*/
 CREATE TABLE dept(
    id int(11) NOT NULL,
    name varchar(20) NOT NULL,
