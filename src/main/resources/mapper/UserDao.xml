@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.UserDao">
+
+    <resultMap type="com.office.automation.bean.User" id="user">
+      <id property="id" column="id" javaType="java.lang.Integer"/>
+      <result property="name" column="name" javaType="java.lang.String"/>
+      <result property="sex" column="sex" javaType="java.lang.String"/>
+      <result property="birthtime" column="birthtime" javaType="java.util.Date"/>
+      <result property="address" column="address" javaType="java.lang.String"/>
+      <result property="email" column="email" javaType="java.lang.String"/>
+      <result property="tel" column="tel" javaType="java.lang.String"/>
+      <result property="poliStatus" column="poliStatus" javaType="java.lang.String"/>
+      <result property="school" column="school" javaType="java.lang.String"/>
+      <result property="graduDate" column="graduDate" javaType="java.util.Date"/>
+      <result property="diploma" column="diploma" javaType="java.lang.String"/>
+      <result property="major" column="major" javaType="java.lang.String"/>
+      <result property="professor" column="professor" javaType="java.lang.String"/>
+      <result property="remark" column="remark" javaType="java.lang.String"/>
+      <result property="joinDate" column="joinDate" javaType="java.util.Date"/>
+      <result property="leaveDate" column="leaveDate" javaType="java.util.Date"/>
+      <result property="jobDate" column="jobDate" javaType="java.util.Date"/>
+      <result property="ctStartDate" column="ctStartDate" javaType="java.util.Date"/>
+      <result property="ctEndDate" column="ctEndDate" javaType="java.util.Date"/>
+      <result property="idCard" column="idCard" javaType="java.lang.String"/>
+      <result property="nation" column="nation" javaType="java.lang.String"/>
+      <result property="nationality" column="nationality" javaType="java.lang.String"/>
+    </resultMap>
+    
+    <select id="getUsers" resultMap="user">
+       select * from user limit #{0},#{1}
+    </select>
+    
+    <select id="getUser" resultMap="user">
+       select * from user where id=#{id}
+    </select>
+    
+    <select id="getUserCount" resultType="java.lang.Integer">
+       select count(*) from user
+    </select>
+    
+    <update id="updateUser">
+       update user set name=#{name},sex=#{sex},birthtime=#{birthtime},address=#{address},email=#{address},tel=#{tel},poliStatus=#{poliStatus},
+       school=#{school},graduDate=#{graduDate},diploma=#{diploma},major=#{major},professor=#{professor},remark=#{remark},
+       joinDate=#{joinDate},leaveDate=#{leaveDate},jobDate=#{jobDate},ctStartDate=#{ctStartDate},ctEndDate=#{ctEndDate},idCard=#{idCard},
+       nation=#{nation},nationality=#{nationality} where id=#{id}
+    </update>
+    
+    <insert id="addUser">
+      insert into user(id,name,sex,birthtime,address,email,tel,poliStatus,school,graduDate,diploma,major,professor,remark,joinDate,
+      leaveDate,jobDate,ctStartDate,ctEndDate,idCard,nation,nationality) values(#{id},#{name},#{sex},#{birthtime},#{address},#{email},
+      #{tel},#{poliStatus},#{school},#{graduDate},#{diploma},#{major},#{professor},#{remark},#{joinDate},#{leaveDate},#{jobDate},
+      #{ctStartDate},#{ctEndDate},#{idCard},#{nation},#{nationality})
+    </insert>
+    
+    <delete id="deleteUser">
+      delete from user where id=#{id}
+    </delete>
+</mapper>

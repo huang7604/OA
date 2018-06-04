@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.RoleDao">
+
+   <resultMap type="com.office.automation.bean.Role" id="role">
+      <id property="id" column="id" javaType="java.lang.Integer"/>
+      <result property="name" column="name" javaType="java.lang.String"/>
+   </resultMap>
+   
+   <select id="getRoles" resultMap="role">
+     SELECT * FROM role LIMIT #{0},#{1}
+   </select>
+   
+   <select id="getRoleTotal" resultType="java.lang.Integer">
+     SELECT count(*) FROM role
+   </select>
+   
+   <select id="getRole" resultMap="role">
+     SELECT * FROM role WHERE id=#{id}
+   </select>
+   
+   
+   
+   <update id="updateRole">
+      UPDATE role SET name=#{name} WHERE id=#{id}
+   </update>
+   
+   <delete id="deleteRole">
+      DELETE FROM role WHERE id=#{id}
+   </delete>
+   <insert id="addRole">
+     INSERT INTO role(id,name) VALUES(#{id},#{name})
+   </insert>
+</mapper>

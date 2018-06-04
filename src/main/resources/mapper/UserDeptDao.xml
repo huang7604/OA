@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.UserDeptDao">
+   <select id="getDeptId" resultType="java.lang.Integer">
+      SELECT IFNULL(MAX(did),0) as did FROM user_dept WHERE uid=#{uid}
+   </select>
+   
+    <delete id="deleteUserDept">
+       DELETE FROM user_dept WHERE id=#{id}
+    </delete>
+    
+    <insert id="addUserDept">
+       INSERT INTO user_dept(id,uid,did) values(#{0},#{0},#{1})
+    </insert>
+</mapper>

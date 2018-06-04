@@ -1,0 +1,30 @@
+div.header{
+	height: 10%;
+	
+}
+
+div.content{
+	height: 120%;
+	margin-left: 10%;
+	margin-right: 10%;
+	
+}
+
+div.footer{
+	height: 10%;
+	
+}
+
+div.content div.left-nav{
+	height: 100%;
+	width: 15%;
+	float: left;
+	
+}
+
+div.content div.right-main{
+	height: 100%;
+	width: 84%;
+	float: left;
+	
+}

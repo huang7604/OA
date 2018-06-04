@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.RoleAtDao">
+
+   <resultMap type="com.office.automation.bean.RoleAt" id="roleAt">
+       <id property="id" column="id" javaType="java.lang.Integer"/>
+       <result property="rid" column="rid" javaType="java.lang.Integer"/>
+       <result property="functionId" column="functionId" javaType="java.lang.String"/>
+       <result property="functionName" column="functionName" javaType="java.lang.String"/>
+       <result property="isHave" column="isHave" javaType="java.lang.Boolean"/>
+       <result property="parentId" column="parentId" javaType="java.lang.String"/>
+       <result property="url" column="url" javaType="java.lang.String"/>
+   </resultMap>
+   
+   <select id="getRoleAtsByNULL" resultMap="roleAt">
+     SELECT * FROM role_at WHERE rid=#{0} AND parentId is NULL
+   </select>
+   
+   <select id="getRoleAts" resultMap="roleAt">
+     SELECT * FROM role_at WHERE rid=#{0} AND parentId=#{1}
+   </select>
+   
+   <update id="updateRoleAt">
+     UPDATE role_at SET isHave=#{2} WHERE rid=#{0} AND functionId=#{1}
+   </update>
+   
+   <insert id="addRoleAt"  parameterType="java.lang.Integer">
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'a','个人办公管理',TRUE,null,null);
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'a1','修改密码',TRUE,'a','/OfficeAutomation/home/adminModifyForm');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'a2','个人日程管理',TRUE,'a','/OfficeAutomation/home/calendar');
+      
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'b','公共信息管理',TRUE,null,null);
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'b1','查看公告',TRUE,'b','/OfficeAutomation/home/index');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'b2','发布公告',FALSE,'b','/OfficeAutomation/home/annoForm');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'b3','公告管理',FALSE,'b','/OfficeAutomation/home/listAnno?start=0');
+
+
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'c','综合办公管理',FALSE,null,null);
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'c1','用户管理',FALSE,'c','/OfficeAutomation/home/listUser?start=0');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'c2','部门管理',FALSE,'c','/OfficeAutomation/home/listDept?start=0');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'c3','角色管理',FALSE,'c','/OfficeAutomation/home/listRole?start=0');
+
+
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'d','工作流程管理',TRUE,null,null);
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'d1','请假申请',TRUE,'d','/OfficeAutomation/home/leaveForm');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'d2','借款申请',TRUE,'d','/OfficeAutomation/home/loanForm');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'d3','出差申请',TRUE,'d','/OfficeAutomation/home/businessTravelForm');
+      insert into role_at(rid,functionId,functionName,isHave,parentId,url) values(#{0},'d4','加班申请',TRUE,'d','/OfficeAutomation/home/overtimeForm');
+      
+   </insert>
+   
+   <delete id="deleteRoleAt">
+      DELETE FROM role_at WHERE rid=#{rid}
+   </delete>
+   
+</mapper>

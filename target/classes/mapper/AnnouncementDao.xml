@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.AnnouncementDao">
+
+   <resultMap type="com.office.automation.bean.User" id="user">
+     <id property="id" column="u_id" javaType="java.lang.Integer"/>
+     <result property="name" column="u_name" javaType="java.lang.String"/>
+   </resultMap>
+   
+   <resultMap type="com.office.automation.bean.Dept" id="dept">
+     <id property="id" column="d_id" javaType="java.lang.Integer"/>
+     <result property="name" column="d_name" javaType="java.lang.String"/>
+   </resultMap>
+   
+    <resultMap type="com.office.automation.bean.Announcement" id="anno">
+      <id property="id" column="id" javaType="java.lang.Integer"/>
+      <result property="createDate" column="createDate" javaType="java.util.Date"/>
+      <result property="topic" column="topic" javaType="java.lang.String"/>
+      <result property="content" column="content" javaType="java.lang.String"/>
+      <result property="remark" column="remark" javaType="java.lang.String"/>
+      <association property="publisher" column="publisher" javaType="com.office.automation.bean.User" resultMap="user"/>
+      <association property="publishDept" column="publishDept" javaType="com.office.automation.bean.Dept" resultMap="dept"/>
+    </resultMap>
+    <select id="addAnno">
+      INSERT INTO announcement(id,createDate,topic,content,remark,publisher,publishDept)
+      VALUES(#{id},#{createDate},#{topic},#{content},#{remark},#{publisher.id},#{publishDept.id})
+    </select>
+    
+    <select id="getAnnoTotal" resultType="java.lang.Integer">
+      SELECT count(*) FROM announcement
+    </select>
+    
+    <select id="getAnnos" resultMap="anno">
+      SELECT a.id,a.createDate,a.topic,a.content,a.remark,a.publisher,a.publishDept,
+      u.id as u_id,u.name as u_name,d.id as d_id,d.name as d_name
+      FROM announcement as a 
+      INNER JOIN user as u ON a.publisher=u.id
+      INNER JOIN dept as d ON a.publishDept=d.id 
+      LIMIT #{0},#{1}
+    </select>
+    
+    <select id="getAnno" resultMap="anno">
+      SELECT a.id,a.createDate,a.topic,a.content,a.remark,a.publisher,a.publishDept,
+      u.id as u_id,u.name as u_name,d.id as d_id,d.name as d_name
+      FROM announcement as a 
+      INNER JOIN user as u ON a.publisher=u.id
+      INNER JOIN dept as d ON a.publishDept=d.id 
+      WHERE a.id=#{id}
+    </select>
+    
+    <delete id="deleteAnno">
+      DELETE FROM announcement WHERE id=#{id}
+    </delete>
+    
+    <update id="updateAnno">
+      UPDATE announcement SET topic=#{topic},content=#{content},remark=#{remark} WHERE id=#{id}
+    </update>
+</mapper>

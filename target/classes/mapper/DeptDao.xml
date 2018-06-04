@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.DeptDao">
+
+   <resultMap type="com.office.automation.bean.Dept" id="dept">
+     <id property="id" column="id" javaType="java.lang.Integer"/>
+     <result property="name" column="name" javaType="java.lang.String"/>
+     <result property="remark" column="remark" javaType="java.lang.String"/>
+     <association property="leader" column="leader" javaType="com.office.automation.bean.User" resultMap="user"/>
+   </resultMap>
+   
+   <resultMap type="com.office.automation.bean.User" id="user">
+     <id property="id" column="u_id" javaType="java.lang.Integer"/>
+     <result property="name" column="u_name" javaType="java.lang.String"/>
+   </resultMap>
+   <select id="getDepts" resultMap="dept">
+     SELECT d.id,d.name,d.leader,d.remark,u.id as u_id,u.name as u_name 
+     FROM dept as d 
+     LEFT JOIN 
+     user as u 
+     ON d.leader=u.id
+     LIMIT #{0},#{1}
+   </select>
+   
+   <select id="getTotal" resultType="java.lang.Integer">
+     select count(*) from dept
+   </select>
+   
+   <select id="getDept" resultMap="dept">
+     SELECT d.id,d.name,d.leader,d.remark,u.id as u_id,u.name as u_name 
+     FROM dept as d 
+     LEFT JOIN 
+     user as u 
+     ON d.leader=u.id
+     WHERE d.id=#{id}
+   </select>
+   
+   <update id="editDept">
+      UPDATE dept set name=#{name},leader=#{leader.id},remark=#{remark} WHERE id=#{id}
+   </update>
+  
+   <delete id="deleteDept">
+      DELETE FROM dept WHERE id=#{id}   
+   </delete>
+   <insert id="addDept">
+     INSERT INTO dept(id,name,leader,remark) values(#{id},#{name},#{leader.id},#{remark})
+   </insert>
+</mapper>

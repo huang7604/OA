@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.office.automation.dao.UserRoleDao">
+   
+    <select id="getRoleId" resultType="java.lang.Integer">
+       SELECT IFNULL(MAX(rid),0) as rid FROM user_role WHERE uid=#{uid}
+    </select>
+    
+    <select id="getUserIdByRoleName" resultType="java.lang.Integer">
+      SELECT uid FROM user_role
+      INNER JOIN role
+      ON user_role.rid=role.id
+      WHERE role.name=#{name}
+    </select>
+    
+    <delete id="deleteUserRole">
+       DELETE FROM user_role WHERE id=#{id}
+    </delete>
+    
+    <insert id="addUserRole">
+       INSERT INTO user_role(id,uid,rid) values(#{0},#{0},#{1})
+    </insert>
+</mapper>
